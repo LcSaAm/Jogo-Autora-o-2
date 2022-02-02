@@ -108,7 +108,7 @@ function updateGameArea() {
         if (pont < 0) {
         	myGameArea.stop();
             }
-        if (pont >= 3 && pont <= 5) {
+        if (pont >= 100 && pont <= 199) {
         	if (pont == 3 && chave1) {
             	myObstacles.splice(i + 1);
                 chave1 = false;
@@ -116,7 +116,7 @@ function updateGameArea() {
 			dimensao = 50;
             intervalo = 200;
             }
-        if (pont >= 6) {
+        if (pont >= 200) {
         	if (pont == 6 && chave2) {
             	myObstacles.splice(i + 1);
                 chave2 = false;
