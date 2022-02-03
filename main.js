@@ -1,27 +1,17 @@
-/* 
-
-AP2 AUTORAÇÃO MULTIMÍDIA II
-
-    VINCENZO SILVA FADDA - 499907
-    PEDRO ILAN DE ARAUJO FERREIRA - 497211
-    LARISSA JÚLIA FERREIRA MAGALHÂES - 493802
-    LETÍCIA DE LIMA TORRES - 496492
-    PAULO SÉERGIO - ?
-*/
-
 var myGamePiece;
 var myObstacles = [];
-var myScore;
 var pont = 0;
 var chave1 = true;
 var chave2 = true;
 var restart = false;
+
 var btnRestart = document.getElementById("btnRestart");
+var scorePoints = document.getElementById("score");
+var level = document.getElementById("nmFase");
 
 function startGame() {
     myGamePiece = new component(30, 30, "red", 10, 120);
     myObstacle = new component(30, 30, "blue", 300, 120);
-    myScore = new component("30px", "Consolas", "white", 280, 40, "text");
     myGameArea.start();
 }
 
@@ -31,7 +21,6 @@ var myGameArea = {
         this.canvas.width = 480;
         this.canvas.height = 270;
         this.context = this.canvas.getContext("2d");
-        //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
         window.addEventListener("keydown", function (e) {
@@ -100,11 +89,14 @@ function updateGameArea() {
     let dimensao = 30;
     let intervalo = 230;
 
+    gameLevel(pont);
+
     for (i = 0; i < myObstacles.length; i++) {
         // Caso acerte um obstáculo subtrair pontos e limpar canvas.
         if (myGamePiece.crashWith(myObstacles[i])) {
             myObstacles.splice(i, 1);
-            pont -= 1;
+            pont--;
+            scorePoints.innerText = pont.toString();
         }
         //Pontuação:
         if (pont < 0) {
@@ -140,26 +132,21 @@ function updateGameArea() {
     for (i = 0; i < myObstacles.length; i += 1) {
         myObstacles[i].x += -1;
         myObstacles[i].update();
-        if (myObstacles[i].x == myGamePiece.x ||myObstacles[i].x == myGamePiece.x + 1 && myGamePiece.speedX != 0) {
+        if (myObstacles[i].x + dimensao == myGamePiece.x ||myObstacles[i].x + dimensao == myGamePiece.x + 1 && myGamePiece.speedX != 0) {
             pont += 1;
+            scorePoints.innerText = pont.toString();
         }
     }
     myGamePiece.speedX = 0;
     myGamePiece.speedY = 0;
-    if (myGameArea.keys && myGameArea.keys[37] && myGamePiece.x >= 0) {myGamePiece.speedX = -1; }
-    if (myGameArea.keys && myGameArea.keys[39] && myGamePiece.x + 30 <= myGameArea.canvas.width) {myGamePiece.speedX = 1; }
-    if (myGameArea.keys && myGameArea.keys[38] && myGamePiece.y >= 0) {myGamePiece.speedY = -1; }
-    if (myGameArea.keys && myGameArea.keys[40] && myGamePiece.y + 30 <= myGameArea.canvas.height) {myGamePiece.speedY = 1; }
-    myScore.text = "SCORE: " + pont;
-    myScore.update();
+    if (myGameArea.keys && myGameArea.keys[37] && myGamePiece.x >= 2) {myGamePiece.speedX = -1; }
+    if (myGameArea.keys && myGameArea.keys[39] && myGamePiece.x + myGamePiece.width <= myGameArea.canvas.width) {myGamePiece.speedX = 1; }
+    if (myGameArea.keys && myGameArea.keys[38] && myGamePiece.y >= 2) {myGamePiece.speedY = -1; }
+    if (myGameArea.keys && myGameArea.keys[40] && myGamePiece.y + myGamePiece.width <= myGameArea.canvas.height) {myGamePiece.speedY = 1; }
     myGamePiece.newPos();
     myGamePiece.update();
 
     gameOver(pont);
-
-    if (restart) {
-        
-    }
 }
 
 function moveup() {
@@ -185,6 +172,7 @@ function stopMove() {
 function gameOver(pontos) {
     if (pontos < 0) {
         myGameArea.context.clearRect(0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
+        myGameArea.context.font = "30px Consolas";
         myGameArea.context.fillText("GAME OVER", (myGameArea.canvas.width/2 - 80), myGameArea.canvas.height/2);
         btnRestart.style.display = 'inline';
 
@@ -196,16 +184,33 @@ function gameOver(pontos) {
                 console.log('removido');
                 myGamePiece;
                 myObstacles = [];
-                myScore;
                 pont = 0;
                 chave1 = true;
                 chave2 = true;
                 restart = false;
                 btnRestart.style.display = 'none';
+                scorePoints.innerText = "0";
 
                 startGame();
             }
         });
+    }
+}
+
+function gameLevel(pontos) {
+    switch(pont) {
+        case 0: 
+            level.innerText = "1";
+            break;
+        case 3:
+            level.innerText = "2";
+            break;
+        case 5:
+            level.innerText = "2";
+            break;
+        case 6:
+            level.innerText = "3";
+            break;
     }
 }
 
