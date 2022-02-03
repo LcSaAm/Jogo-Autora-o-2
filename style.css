@@ -18,9 +18,9 @@
     justify-content: center;
     align-items: center;
   background: linear-gradient(#141e30, #243b55);
-   -webkit-box-shadow:inset 0px 0px 0px 15px #191c29;
-    -moz-box-shadow:inset 0px 0px 0px 15px #191c29;
-    box-shadow:inset 0px 0px 0px 15px #191c29;
+   -webkit-box-shadow:inset 0px 0px 0px 20px #191c29;
+    -moz-box-shadow:inset 0px 0px 0px 20px #191c29;
+    box-shadow:inset 0px 0px 0px 20px #191c29;
 }
 
 #btnRestart {
