@@ -21,7 +21,7 @@ var btnRestart = document.getElementById("btnRestart");
 function startGame() {
     myGamePiece = new component(30, 30, "red", 10, 120);
     myObstacle = new component(30, 30, "blue", 300, 120);
-    myScore = new component("30px", "Consolas", "black", 280, 40, "text");
+    myScore = new component("30px", "Consolas", "white", 280, 40, "text");
     myGameArea.start();
 }
 
