@@ -202,13 +202,13 @@ function gameLevel(pontos) {
         case 0: 
             level.innerText = "1";
             break;
-        case 3:
+        case 100:
             level.innerText = "2";
             break;
-        case 5:
+        case 199:
             level.innerText = "2";
             break;
-        case 6:
+        case 200:
             level.innerText = "3";
             break;
     }
