@@ -97,16 +97,16 @@ function updateGameArea() {
             pont--;
             scorePoints.innerText = pont.toString();
         }
-        if (pont >= 3 && pont <= 5) {
-            if (pont == 3 && chave1) {
+        if (pont >= 100 && pont <= 199) {
+            if (pont == 100 && chave1) {
                 myObstacles.splice(i + 1);
                 chave1 = false;
             }
             dimensao = 50;
             intervalo = 200;
             }
-        if (pont >= 6) {
-            if (pont == 6 && chave2) {
+        if (pont >= 200) {
+            if (pont == 200 && chave2) {
                 myObstacles.splice(i + 1);
                 chave2 = false;
             }
@@ -165,7 +165,7 @@ function stopMove() {
 }
 
 function gameOver(pontos) {
-    if (pontos < 0 || pontos >= 8) {
+    if (pontos < 0 || pontos >= 300) {
         myGameArea.stop();
         myGameArea.context.clearRect(0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
         myGameArea.context.font = "30px Consolas";
