@@ -92,15 +92,10 @@ function updateGameArea() {
     gameLevel(pont);
 
     for (i = 0; i < myObstacles.length; i++) {
-        // Caso acerte um obstáculo subtrair pontos e limpar canvas.
         if (myGamePiece.crashWith(myObstacles[i])) {
             myObstacles.splice(i, 1);
             pont--;
             scorePoints.innerText = pont.toString();
-        }
-        //Pontuação:
-        if (pont < 0) {
-            myGameArea.stop();
         }
         if (pont >= 3 && pont <= 5) {
             if (pont == 3 && chave1) {
@@ -170,10 +165,15 @@ function stopMove() {
 }
 
 function gameOver(pontos) {
-    if (pontos < 0) {
+    if (pontos < 0 || pontos >= 8) {
+        myGameArea.stop();
         myGameArea.context.clearRect(0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
         myGameArea.context.font = "30px Consolas";
-        myGameArea.context.fillText("GAME OVER", (myGameArea.canvas.width/2 - 80), myGameArea.canvas.height/2);
+        if (pontos < 0) {
+            myGameArea.context.fillText("GAME OVER", (myGameArea.canvas.width/2 - 80), myGameArea.canvas.height/2);
+        } else {
+            myGameArea.context.fillText("FINALIZADO", (myGameArea.canvas.width/2 - 85), myGameArea.canvas.height/2);
+        }      
         btnRestart.style.display = 'inline';
 
         btnRestart.addEventListener('click', function restartGame(){
