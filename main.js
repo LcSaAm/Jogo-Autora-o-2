@@ -129,7 +129,6 @@ function updateGameArea() {
         myObstacles[i].update();
         if (myObstacles[i].x == myGamePiece.x ||myObstacles[i].x == myGamePiece.x + 1 && myGamePiece.speedX != 0) {
             pont += 1;
-            myObstacles[i].x += -1;
             scorePoints.innerText = pont.toString();
         }
     }
